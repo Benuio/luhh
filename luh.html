@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahal Mo Parin Siya?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .choice-btn {
+            transition: all 0.3s ease;
+        }
+        .choice-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .title-glow {
+            text-shadow: 0 0 8px rgba(255, 105, 180, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-pink-50 to-purple-100 min-h-screen flex items-center justify-center p-4">
+    <div class="text-center max-w-md w-full">
+        <div class="bg-white rounded-xl shadow-lg p-8">
+            <h1 class="text-3xl font-bold mb-8 text-pink-600 title-glow">Mahal Mo Parin Siya?</h1>
+            
+            <div class="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 sm:justify-center">
+                <button onclick="handleChoice('Oo')" 
+                        class="choice-btn bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md text-lg animate-pulse">
+                    Oo
+                </button>
+                
+                <button onclick="handleChoice('Hindi')" 
+                        class="choice-btn bg-purple-500 hover:bg-purple-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md text-lg">
+                    Hindi
+                </button>
+            </div>
+        </div>
+        
+        <div id="result" class="mt-6 text-pink-700 font-medium text-lg hidden">
+            <!-- Result will appear here -->
+        </div>
+
+        <div id="video-container-oo" class="mt-6 hidden">
+            <video id="video-player-oo" width="100%" controls>
+                <source src="https://webapp-sg.tiktok.com/b8e35dd98fc5bbac216cb1cd91940a94/6880c39f/kmoat/tos-alisg-pve-0037/ooEF8lXe787hLGALQDRsWQpGAI4JwfG6iefoIn?a=1988&bti=ODszNWYuMDE6&ch=0&cr=3&dr=0&lr=all&cd=0%7C0%7C0%7C&br=294&bt=147&cs=0&ds=6&ft=LrmapogrD12Nvmjd2WIxRGmNJlBF-UjNS8opiX&mime_type=video_mp4&qs=0&rc=cnF8b2hsc2d3SkBwaHIxaDFybndmNDc6aDM2Njo2aTc1NTo4ZUBpM253ZWw5cnQ1NDMzODgzNEBjRl5Nc3FePmJKYSNvYF90aHFmOiNiYzA0YzIyNS4xNl8uMS5eYSNvMmlwMmRzLXNhLS1kL2Bzcw%3D%3D&btag=2000b0000&dpk=UNhor0tt9SpviWiQ9%2FKXh75iwPgx5umUl6s%2BCUX9tX2yAu7fawNifosabi8KGgxXaHAQTFOJX8OfFSZopSCjRVDzHjm2736IqNi6ug%3D%3D&dpm=cenc-aes-ctr&l=2025072119122024F58E9B04294D6CB545&ply_type=3&policy=eyJ2bSI6MywidWlkIjoiNjk4NDY4Mjc3ODYwNDQzODUyOSJ9" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div id="video-container-hindi" class="mt-6 hidden">
+            <video id="video-player-hindi" width="100%" controls>
+                <source src="https://webapp-sg.tiktok.com/1dcb316fdb4aa584209b3612c91d8f99/6880c6a0/kmoat/tos-alisg-pve-0037/oo2biIwVepQAOxaIRqE2CFfErDyDkAM4hQfzGP?a=1988&bti=ODszNWYuMDE6&ch=0&cr=3&dr=0&lr=all&cd=0%7C0%7C0%7C&br=278&bt=139&cs=0&ds=6&ft=LrmapogrD12NvZBd2WIxRHhNHlBF-UjNSfopiX&mime_type=video_mp4&qs=0&rc=cnF8b2hsc2d3SkBwaHIxaDFybndmNDk0NDg3OGQzMzw5ZjdpNUBpajo1NW45cjg1NDMzODgzNEBjRl5Nc3FePmJKYSNvYF90aHFmOiMyLi8tNTQxXzIxYGFgYi01YSNnMzNtMmRjM3NhLS1kL2Bzcw%3D%3D&btag=200088000&dpk=m4zjWarCZk8rBPbkirmWhMNT9F6ITut4rokLuJ8DCHHikgfv%2FdBeNWrCGe3lwBTAsJwjh%2BTQ7xawmPdVHMNF%2Bx3mjN0BTmBoBWLeaw%3D%3D&dpm=cenc-aes-ctr&l=20250721192432BD69427D886F3A65427B&ply_type=3&policy=eyJ2bSI6MywidWlkIjoiNjk4NDY4Mjc3ODYwNDQzODUyOSJ9" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <script>
+        function handleChoice(choice) {
+            const resultDiv = document.getElementById('result');
+            const videoContainerOo = document.getElementById('video-container-oo');
+            const videoContainerHindi = document.getElementById('video-container-hindi');
+            const videoPlayerOo = document.getElementById('video-player-oo');
+            const videoPlayerHindi = document.getElementById('video-player-hindi');
+            resultDiv.classList.remove('hidden');
+            videoContainerOo.classList.add('hidden');
+            videoContainerHindi.classList.add('hidden');
+            
+            if (choice === 'Oo') {
+                resultDiv.innerHTML = 'Ang sweet mo naman! 💖';
+                resultDiv.className = 'mt-6 text-pink-700 font-medium text-lg';
+                document.querySelector('body').classList.add('bg-gradient-to-b', 'from-pink-100', 'to-red-100');
+                
+                videoContainerOo.classList.remove('hidden');
+                videoPlayerOo.play();
+            } else {
+                resultDiv.innerHTML = 'Okay lang yan, may iba pang naghihintay sayo! 💜';
+                resultDiv.className = 'mt-6 text-purple-700 font-medium text-lg';
+                document.querySelector('body').classList.add('bg-gradient-to-b', 'from-purple-100', 'to-indigo-100');
+                
+                videoContainerHindi.classList.remove('hidden');
+                setTimeout(() => { videoPlayerHindi.play(); }, 500);
+            }
+            
+            // Remove animation from the selected button
+            document.querySelectorAll('.choice-btn').forEach(btn => {
+                btn.classList.remove('animate-pulse');
+            });
+        }
+    </script>
+</body>
+</html>
